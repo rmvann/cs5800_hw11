@@ -7,7 +7,7 @@ public abstract class StateOfVendingMachine {
         this.vendingMachine = vendingMachine;
     }
 
-    public abstract void selectSnack();
+    public abstract Snack selectSnack(String name);
 
     public abstract void insertMoney();
 

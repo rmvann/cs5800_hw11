@@ -1,25 +1,57 @@
 package vending;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class VendingMachine {
     private StateOfVendingMachine state;
+    private Map<String, Snack> snacks;
+    private double cashInMachine;
+    private Snack selectedSnack = null;
+
+    private final StateOfVendingMachine idleState = new IdleState(this);
+    private final StateOfVendingMachine moneyState = new ReceiveMoneyState(this);
+    private final StateOfVendingMachine dispenseState = new DispenseState(this);
 
     public VendingMachine(){
-        state = new IdleState(this);
+        state = idleStateInstance();
+        snacks = new HashMap<>();
+        cashInMachine = 0.0;
     }
 
     public void setState(StateOfVendingMachine state) {
         this.state = state;
     }
 
-    public void selectSnack(){
-        return;
+    public void selectSnack(String name){
+        selectedSnack = state.selectSnack(name);
     }
 
     public void insertMoney(){
-        return;
+        state.insertMoney();
     }
 
     public void dispenseSnack(){
-        return;
+        state.dispenseSnack();
+    }
+
+    public void addSnack(Snack snack){
+        snacks.put(snack.getName(), snack);
+    }
+
+    public Map<String, Snack> getSnacks(){
+        return snacks;
+    }
+
+    public StateOfVendingMachine idleStateInstance(){
+        return idleState;
+    }
+
+    public StateOfVendingMachine moneyStateInstance(){
+        return moneyState;
+    }
+
+    public StateOfVendingMachine dispenseStateInstance(){
+        return dispenseState;
     }
 }

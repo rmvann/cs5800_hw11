@@ -1,12 +1,12 @@
 package vending;
 
 public class DispenseState extends StateOfVendingMachine{
-    public DispenseState(VendingMachine machine) {
-        super(machine);
+    public DispenseState(VendingMachine vendingMachine) {
+        super(vendingMachine);
     }
 
     @Override
-    public void selectSnack() {
+    public Snack selectSnack(String name) {
 
     }
 
