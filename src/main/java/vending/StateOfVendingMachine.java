@@ -9,7 +9,7 @@ public abstract class StateOfVendingMachine {
 
     public abstract Snack selectSnack(String name);
 
-    public abstract void insertMoney();
+    public abstract void insertMoney(double amount);
 
     public abstract void dispenseSnack();
 }

@@ -14,7 +14,7 @@ public class VendingMachine {
     private final StateOfVendingMachine dispenseState = new DispenseState(this);
 
     public VendingMachine(){
-        state = idleStateInstance();
+        setState(idleState);
         snacks = new HashMap<>();
         cashInMachine = 0.0;
     }
@@ -27,12 +27,19 @@ public class VendingMachine {
         selectedSnack = state.selectSnack(name);
     }
 
-    public void insertMoney(){
-        state.insertMoney();
+    public void insertMoney(double amount){
+        state.insertMoney(amount);
     }
 
     public void dispenseSnack(){
         state.dispenseSnack();
+    }
+
+    public void returnMoney(){
+        System.out.printf("Returning $%d%n", selectedSnack.getQuantity());
+        cashInMachine = 0;
+        selectedSnack = null;
+        setState(idleState);
     }
 
     public void addSnack(Snack snack){
@@ -53,5 +60,17 @@ public class VendingMachine {
 
     public StateOfVendingMachine dispenseStateInstance(){
         return dispenseState;
+    }
+
+    public void addCash(double amount){
+        cashInMachine += amount;
+    }
+
+    public Snack getSelectedSnack(){
+        return selectedSnack;
+    }
+
+    public double getCashInMachine(){
+        return cashInMachine;
     }
 }

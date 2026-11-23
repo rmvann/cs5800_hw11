@@ -9,6 +9,7 @@ public class IdleState extends StateOfVendingMachine{
     public Snack selectSnack(String name) {
         if(vendingMachine.getSnacks().containsKey(name)){
             vendingMachine.setState(vendingMachine.moneyStateInstance());
+            System.out.printf("%s selected%n", name);
             return vendingMachine.getSnacks().get(name);
         }
         else{
@@ -18,7 +19,7 @@ public class IdleState extends StateOfVendingMachine{
     }
 
     @Override
-    public void insertMoney() {
+    public void insertMoney(double amount) {
         System.err.println("No snack selected");
     }
 
