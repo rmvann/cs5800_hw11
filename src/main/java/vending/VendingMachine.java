@@ -84,4 +84,8 @@ public class VendingMachine {
     public SnackDispenseHandler getDispenseHandler(){
         return dispenseHandler;
     }
+
+    public StateOfVendingMachine getState(){
+        return state;
+    }
 }
