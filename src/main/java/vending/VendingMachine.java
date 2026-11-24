@@ -8,6 +8,7 @@ public class VendingMachine {
     private Map<String, Snack> snacks;
     private double cashInMachine;
     private Snack selectedSnack = null;
+    private SnackDispenseHandler dispenseHandler;
 
     private final StateOfVendingMachine idleState = new IdleState(this);
     private final StateOfVendingMachine moneyState = new ReceiveMoneyState(this);
@@ -17,6 +18,12 @@ public class VendingMachine {
         setState(idleState);
         snacks = new HashMap<>();
         cashInMachine = 0.0;
+        dispenseHandler = new SnackDispenseCoke(this);
+        SnackDispenseHandler temp = dispenseHandler.setNext(new SnackDispensePepsi(this));
+        temp = temp.setNext(new SnackDispenseCheetos(this));
+        temp = temp.setNext(new SnackDispenseDoritos(this));
+        temp = temp.setNext(new SnackDispenseKitkat(this));
+        temp.setNext(new SnackDispenseSnickers(this));
     }
 
     public void setState(StateOfVendingMachine state) {
@@ -36,7 +43,7 @@ public class VendingMachine {
     }
 
     public void returnMoney(){
-        System.out.printf("Returning $%d%n", selectedSnack.getQuantity());
+        System.out.printf("Returning $%.2f%n", cashInMachine);
         cashInMachine = 0;
         selectedSnack = null;
         setState(idleState);
@@ -72,5 +79,9 @@ public class VendingMachine {
 
     public double getCashInMachine(){
         return cashInMachine;
+    }
+
+    public SnackDispenseHandler getDispenseHandler(){
+        return dispenseHandler;
     }
 }

@@ -7,7 +7,7 @@ public class ReceiveMoneyState extends StateOfVendingMachine{
 
     @Override
     public Snack selectSnack(String name) {
-        if(vendingMachine.getSnacks().containsKey(name)){
+        if(vendingMachine.getSnacks().containsKey(name) && vendingMachine.getSnacks().get(name).getQuantity()>0){
             System.out.printf("%s selected%n", name);
             return vendingMachine.getSnacks().get(name);
         }

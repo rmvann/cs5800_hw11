@@ -7,7 +7,7 @@ public class DispenseState extends StateOfVendingMachine{
 
     @Override
     public Snack selectSnack(String name) {
-        if(vendingMachine.getSnacks().containsKey(name)){
+        if(vendingMachine.getSnacks().containsKey(name) && vendingMachine.getSnacks().get(name).getQuantity()>0){
             System.out.printf("%s selected%n", name);
             Snack snack = vendingMachine.getSnacks().get(name);
             if(vendingMachine.getCashInMachine() >= snack.getCost()){
@@ -32,6 +32,9 @@ public class DispenseState extends StateOfVendingMachine{
 
     @Override
     public void dispenseSnack() {
-        
+        vendingMachine.getDispenseHandler().dispense(vendingMachine.getSelectedSnack().getName());
+        vendingMachine.addCash(-vendingMachine.getSelectedSnack().getCost());
+        vendingMachine.returnMoney();
+        vendingMachine.setState(vendingMachine.idleStateInstance());
     }
 }
